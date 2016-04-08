@@ -51,7 +51,7 @@ a {
 .search-box input[type='search'] {
   width: 100%;
   font: 1rem "Titillium Web", sans-serif;
-  color: #1a4e8e;
+  color: #EE3534;
   border-top: 1px solid #C6BDBD;
   border-left: 1px solid #C6BDBD;
   border-right: 1px solid #C6BDBD;
@@ -90,33 +90,33 @@ a {
   font-size: 1.1885rem;
   color: #fff;
 }
-.github-profile-state {
+.github-profile-stats {
   background: #EE3534;
   text-align: center;
   padding: 1.875rem .9375rem;
   border-radius: 0 0 .3125rem .3125rem;
 }
-.github-profile-state ul {
+.github-profile-stats ul {
   direction: ltr;
 }
-.github-profile-state li {
+.github-profile-stats li {
   list-style: none;
   display: inline-block;
   margin-right: 1rem;
 }
-.github-profile-state li:last-child {
+.github-profile-stats li:last-child {
   margin-right: 0;
 }
-.github-profile-state a {
+.github-profile-stats a {
   color: #fff;
 }
-.github-profile-state i {
+.github-profile-stats i {
   font-size: 1.5rem;
   font-weight: 700;
   font-style: normal;
   display: block;
 }
-.github-profile-state span {
+.github-profile-stats span {
   font-size: .844rem;
   letter-spacing: .0625rem;
   color: #fff;

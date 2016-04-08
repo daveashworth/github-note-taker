@@ -1,4 +1,4 @@
-module UserCard(init, update, view) where
+module UserCard(Model, Action, init, update, view) where
 
 import Effects exposing (Effects, Never)
 import Html exposing (..)
@@ -47,7 +47,7 @@ update : Action -> Model -> (Model, Effects Action)
 update action model =
   case action of
     ChangeUserName username ->
-      ({ model|username = username }, Effects.none)
+      ({ model | username = username }, Effects.none)
 
     ReplaceUser ->
       (model, getGithubUser model.username)
@@ -77,7 +77,7 @@ update action model =
 view : Signal.Address Action -> Model -> Html
 view address model =
   div []
-    [ section [ id "card" ]
+     [ section [ id "card" ]
         [ div [ class "search-box" ]
             [ label []
                 [ input
@@ -98,7 +98,7 @@ view address model =
                 , h3 [] [ text model.userDetails.location ]
                 ]
             , div [ style [ "height" => "5px", "background" => "#fff" ] ] [ text " " ]
-            , div [ class "github-profile-state" ]
+            , div [ class "github-profile-stats" ]
                 [ ul []
                     [ li [] [ a [ href "#" ] [ i [] [ text (toString model.userDetails.followers) ], span [] [ text "Followers" ] ] ]
                     , li [] [ a [ href "#" ] [ i [] [ text (toString model.userDetails.publicRepos) ], span [] [ text "Repositories" ] ] ]

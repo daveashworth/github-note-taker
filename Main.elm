@@ -5,7 +5,7 @@ import UserCard exposing (init, update, view)
 
 app =
   StartApp.start
-    { init = init "cdonohue"
+    { init = init "daveashworth"
     , update = update
     , view = view
     , inputs = []
