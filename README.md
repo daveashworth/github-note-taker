@@ -2,9 +2,9 @@
 A Sample Elm App for learning Elm Viewing Github Profiles
 
 ## To Run
-Make sure you have [Elm] installed
+Make sure you have [Elm][] installed
 
-[Elm] = "http://elm-lang.org/get-started"
+[Elm]: http://elm-lang.org/get-started
 
 cd to the project directory
 
