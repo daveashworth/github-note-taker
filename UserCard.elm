@@ -1,9 +1,9 @@
 module UserCard(init, update, view) where
 
 import Effects exposing (Effects, Never)
-import Html exposing (Html, a, button, div, h2, h3, hr, i, img, input, label, li, section, span, text, ul, Attribute)
-import Html.Attributes exposing (style, src, href, class, id, target, type', placeholder)
-import Html.Events exposing (onClick)
+import Html exposing (..)
+import Html.Attributes exposing (..)
+import Html.Events exposing (..)
 import Http
 import Json.Decode as Json
 import Task
@@ -36,8 +36,9 @@ init username =
 -- UPDATE
 
 type Action
-  = NoOp
-  | NewUser (Maybe UserDetails)
+  = NewUser (Maybe UserDetails)
+  | ChangeUserName String
+  | ReplaceUser
   | ViewProfile
   | ViewNotes
   | ViewRepos
@@ -45,8 +46,11 @@ type Action
 update : Action -> Model -> (Model, Effects Action)
 update action model =
   case action of
-    NoOp ->
-      (model, Effects.none)
+    ChangeUserName username ->
+      ({ model|username = username }, Effects.none)
+
+    ReplaceUser ->
+      (model, getGithubUser model.username)
 
     NewUser maybeDetails ->
       case maybeDetails of
@@ -68,21 +72,22 @@ update action model =
 
 -- VIEW
 
-{--
-<div className="search-box">
-   <label><input type="search" ref="username" placeholder="Type Username + Enter"/></label>
-</div>
---}
-
 (=>) = (,)
 
 view : Signal.Address Action -> Model -> Html
-view action model =
+view address model =
   div []
     [ section [ id "card" ]
         [ div [ class "search-box" ]
             [ label []
-                [ input [ type' "search", placeholder "Type a Github Username + Enter" ] [] ]
+                [ input
+                  [ type' "search"
+                  , onEnter address ReplaceUser
+                  , on "input" targetValue (Signal.message address << ChangeUserName)
+                  , placeholder "Type a Github Username + Enter"
+                  ]
+                  []
+                ]
             ]
         , section [ class "github-profile" ]
             [ div [ class "github-profile-info" ]
@@ -119,7 +124,6 @@ githubUserUrl username =
 
 
 -- takes a Json.Decoder that decodes the json string into UserDetails...
--- followers, following, location, public_repos
 decodeData : Json.Decoder UserDetails
 decodeData =
   Json.object7 UserDetails
@@ -130,3 +134,19 @@ decodeData =
     (Json.at ["following"] Json.int)
     (Json.at ["public_repos"] Json.int)
     (Json.at ["location"] (Json.oneOf [Json.string, Json.null "I'm Homeless"]))
+
+
+onEnter : Signal.Address a -> a -> Attribute
+onEnter address value =
+    on "keydown"
+        (Json.customDecoder keyCode is13)
+        (\_ -> Signal.message address value)
+
+
+is13 : Int -> Result String ()
+is13 code =
+    if code == 13 then
+        Ok ()
+
+    else
+        Err "not the right key code"
