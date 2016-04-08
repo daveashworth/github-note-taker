@@ -1,5 +1,5 @@
 # github-note-taker
-A Sample Elm App for learning Elm Viewing Github Profiles
+A Sample Elm App for learning Elm & Viewing Github Profiles
 
 ## To Run
 Make sure you have [Elm][] installed
