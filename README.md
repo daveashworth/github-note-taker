@@ -11,3 +11,5 @@ cd to the project directory
 Run `elm-make Main.elm --output elm.js`
 
 Then open `index.html` in a browser, and enjoy!
+
+![Github UserCard Demo](hackathon-demo.gif)
